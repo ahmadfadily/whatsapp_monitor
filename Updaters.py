@@ -29,7 +29,7 @@ def status_whatsapp_updates(message, driver, name):
 		return
 
 def status_txt_update(message, online_time):
-	f=open('status.txt','a')
+	f=open('StatusLogFiles/status.txt', 'a')
 	if message == 'offline' :
 		f.write('have been online for '+ str(datetime.now()-online_time)+ ' minutes ')
 	f.write(str(datetime.now()))

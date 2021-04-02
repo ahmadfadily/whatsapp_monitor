@@ -34,7 +34,7 @@ def status_check(driver):
             if flag != 1 and status == 'online':
                 online_time = datetime.now()
                 status_txt_update(status, online_time)
-                playsound('online_notify.mp3')
+                playsound('Sounds/online_notify.mp3')
                 typing_check = 0
                 flag = 1
             if status == 'typing…':
@@ -42,7 +42,7 @@ def status_check(driver):
                     typing_check = 1
                     status_whatsapp_updates("typing…", driver, name)
                     status_txt_update(status, online_time)
-                    playsound('meow.mp3')
+                    playsound('Sounds/meow.mp3')
             print('onlineee')
         print(status)
         time.sleep(1)
