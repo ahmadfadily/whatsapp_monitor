@@ -5,8 +5,8 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from Error_Handling import click_function
 from Updaters import status_txt_update, status_whatsapp_updates
 
-
 def status_check(driver, Chat_or_online):
+    minutes_total = datetime.now() - datetime.now()
     flag = 0
     online_time = 0
     typing_check = 1
@@ -18,6 +18,7 @@ def status_check(driver, Chat_or_online):
     else :
         name ='number'
     while True:
+        print(minutes_total)
         i = 0
         try:
             status = driver.find_element_by_xpath("/html/body/div[1]/div/div/div[4]/div/header/div[2]/div[2]/span").text
@@ -25,7 +26,8 @@ def status_check(driver, Chat_or_online):
         except (NoSuchElementException, StaleElementReferenceException):
             status = 'offline'
             if flag == 1:
-                status_txt_update(status, online_time)
+                minutes_total = minutes_total + (datetime.now() - online_time)
+                status_txt_update(status, online_time,minutes_total)
                 typing_check = 0
             flag = 0
             i = 0
@@ -35,7 +37,7 @@ def status_check(driver, Chat_or_online):
                 continue
             if flag != 1 and status == 'online':
                 online_time = datetime.now()
-                status_txt_update(status, online_time)
+                status_txt_update(status, online_time,minutes_total)
                 playsound('Sounds/online_notify.mp3')
                 typing_check = 0
                 flag = 1
@@ -43,7 +45,7 @@ def status_check(driver, Chat_or_online):
                 if typing_check == 0:
                     typing_check = 1
                     status_whatsapp_updates("typing…", driver, name)
-                    status_txt_update(status, online_time)
+                    status_txt_update(status, online_time, minutes_total)
                     playsound('Sounds/meow.mp3')
         print(status)
         time.sleep(1)

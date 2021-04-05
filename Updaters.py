@@ -28,10 +28,11 @@ def status_whatsapp_updates(message, driver, name):
 	except(NoSuchElementException, StaleElementReferenceException):
 		return
 
-def status_txt_update(message, online_time):
+def status_txt_update(message, online_time,minutes):
 	f=open('StatusLogFiles/status.txt', 'a')
 	if message == 'offline' :
-		f.write('have been online for '+ str(datetime.now()-online_time)+ ' minutes ')
+		f.write('have been online for '+ str(datetime.now()-online_time)+ ' minutes \n')
+		f.write('totaltime : ' + str(minutes)+'\n')
 	f.write(str(datetime.now()))
 	f.write(' '+ message + '\n')
 	f.close()
